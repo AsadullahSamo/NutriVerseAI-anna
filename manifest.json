@@ -1,0 +1,58 @@
+{
+  "schema": 3,
+  "required_executas": [],
+  "storage": {
+    "kv": true
+  },
+  "system_prompt_addendum": "NutriVerseAI is a nutrition and kitchen app. When the user asks to plan meals, track nutrition, check their pantry, manage kitchen equipment or explore a cuisine, open the app with open_app_view.",
+  "tags": [
+    "nutrition",
+    "meal-planning",
+    "recipes",
+    "pantry"
+  ],
+  "ui": {
+    "bundle": {
+      "format": "static-spa",
+      "entry": "index.html",
+      "external_origins": []
+    },
+    "views": [
+      {
+        "name": "main",
+        "title": "NutriVerseAI",
+        "default": true,
+        "single_instance": true,
+        "default_size": {
+          "w": 1100,
+          "h": 640
+        },
+        "min_size": {
+          "w": 360,
+          "h": 400
+        }
+      }
+    ],
+    "form_factors": [
+      "desktop",
+      "mobile"
+    ],
+    "host_api": {
+      "storage": [
+        "get",
+        "set",
+        "delete",
+        "list"
+      ],
+      "llm": [
+        "complete"
+      ],
+      "window": [
+        "set_title",
+        "ready"
+      ]
+    },
+    "csp_overrides": {},
+    "state_merge": "last_writer_wins"
+  }
+}

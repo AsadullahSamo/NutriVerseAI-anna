@@ -1,0 +1,387 @@
+@import "./styles/theme.css";
+@import "./styles/dropdown-options.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --base-font-size: 0.95rem;  /* 95% of default */
+    --content-width: 85.5rem;   /* Scaled width for content */
+    --container-padding: 1.425rem;  /* 1.5rem * 0.95 */
+  }
+
+  html {
+    font-size: var(--base-font-size);
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    background-image: var(--gradient-background);
+    font-size: 0.95rem;  /* 95% of 1rem */
+    line-height: 1.5;
+  }
+
+  .container {
+    @apply mx-auto px-4;
+    max-width: min(var(--content-width), 95% - 2 * var(--container-padding));
+  }
+
+  /* Adjust common text sizes */
+  h1 { @apply text-[1.9rem] font-semibold; }  /* 2rem * 0.95 */
+  h2 { @apply text-[1.425rem] font-semibold; } /* 1.5rem * 0.95 */
+  h3 { @apply text-[1.1875rem] font-semibold; } /* 1.25rem * 0.95 */
+  h4 { @apply text-[1.0925rem] font-medium; } /* 1.15rem * 0.95 */
+
+  /* Adjust spacing for UI components */
+  .btn, .button, button:not(.unstyled) {
+    @apply px-[0.95rem] py-[0.475rem] text-sm;
+  }
+
+  /* Adjust card and container padding */
+  .card-content, [class*="card-content"] {
+    @apply p-[1.1875rem];  /* 1.25rem * 0.95 */
+  }
+
+  /* Adjust input and form controls */
+  input, select, textarea {
+    @apply text-[0.95rem];  /* 1rem * 0.95 */
+  }
+
+  /* Navigation and menu items */
+  .nav-item, .menu-item {
+    @apply text-[0.855rem];  /* 0.9rem * 0.95 */
+  }
+
+  /* Adjust link spacing */
+  a:not(.unstyled) {
+    @apply px-[0.475rem] py-[0.2375rem];  /* 0.5rem/0.25rem * 0.95 */
+  }
+
+  .card, 
+  .bg-card {
+    background-image: var(--gradient-card);
+  }
+
+  .bg-muted {
+    background-image: var(--gradient-surface);
+  }
+}
+
+/* Ensure modal overlays work in production */
+[data-radix-portal] {
+  z-index: 50 !important;
+}
+
+[data-radix-portal] [data-state="open"] {
+  animation: fadeIn 0.2s ease-out;
+}
+
+[data-radix-portal] [data-state="closed"] {
+  animation: fadeOut 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* Force overlay visibility */
+.dialog-overlay,
+.alert-dialog-overlay,
+.sheet-overlay,
+.drawer-overlay {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  backdrop-filter: blur(2px) !important;
+  z-index: 50 !important;
+}
+
+/* Lock body scroll when modal is open */
+body.modal-open {
+  overflow: hidden !important;
+}
+
+/* Force all modal overlays to be visible */
+[data-state="open"] {
+  display: block !important;
+}
+
+/* Fix Select dropdown visibility in production */
+[data-radix-select-content] {
+  z-index: 200 !important;
+  position: fixed !important;
+  background: hsl(var(--background)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  border-radius: 6px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  min-width: 8rem !important;
+  max-height: 24rem !important;
+  overflow: hidden !important;
+}
+
+/* Ensure Select dropdowns work in dialogs */
+[data-radix-dialog-content] [data-radix-select-content] {
+  z-index: 200 !important;
+}
+
+/* Force Select trigger to be clickable */
+[data-radix-select-trigger] {
+  position: relative !important;
+  z-index: 1 !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+}
+
+/* Ensure Select items are clickable */
+[data-radix-select-item] {
+  cursor: pointer !important;
+  pointer-events: auto !important;
+}
+
+/* Additional fixes for Select dropdown issues */
+[data-radix-select-content] {
+  pointer-events: auto !important;
+  user-select: none !important;
+}
+
+[data-radix-select-item]:focus {
+  outline: none !important;
+  background-color: hsl(var(--accent)) !important;
+}
+
+/* Ensure Select works in all dialog contexts */
+.dialog-content [data-radix-select-content] {
+  z-index: 200 !important;
+}
+
+/* Force Select portal to render above everything */
+[data-radix-portal] {
+  z-index: 200 !important;
+}
+
+[data-radix-select-viewport] {
+  padding: 4px !important;
+}
+
+/* Beautiful scrollable dialog content */
+.dialog-scroll-area {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--border)) transparent;
+}
+
+.dialog-scroll-area::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dialog-scroll-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dialog-scroll-area::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--border));
+  border-radius: 3px;
+}
+
+.dialog-scroll-area::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(var(--border) / 0.8);
+}
+
+[data-radix-select-item] {
+  padding: 8px 12px !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s ease !important;
+}
+
+[data-radix-select-item]:hover,
+[data-radix-select-item][data-highlighted] {
+  background-color: hsl(var(--accent)) !important;
+  color: hsl(var(--accent-foreground)) !important;
+}
+
+[data-radix-select-item][data-state="checked"] {
+  background-color: hsl(var(--primary) / 0.1) !important;
+  color: hsl(var(--primary)) !important;
+}
+
+/* Ensure backdrop is always visible */
+[data-radix-dialog-overlay],
+[data-radix-alert-dialog-overlay] {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  backdrop-filter: blur(2px) !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 50 !important;
+}
+
+/* Dialog scrolling improvements for production */
+[data-radix-dialog-content] {
+  max-height: 90vh !important;
+  overflow: hidden !important;
+}
+
+/* Ensure dialog content areas are properly scrollable */
+.dialog-scroll-area {
+  overflow-y: auto !important;
+  max-height: calc(90vh - 120px) !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: hsl(var(--primary)) transparent !important;
+  padding-left: 4px !important;
+  padding-right: 4px !important;
+}
+
+/* Webkit scrollbar styling for dialog content - Green theme */
+.dialog-scroll-area::-webkit-scrollbar {
+  width: 8px !important;
+}
+
+.dialog-scroll-area::-webkit-scrollbar-track {
+  background: transparent !important;
+  border-radius: 4px !important;
+}
+
+.dialog-scroll-area::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--primary) / 0.6) !important;
+  border-radius: 4px !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.dialog-scroll-area::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(var(--primary) / 0.8) !important;
+}
+
+/* Global scrollbar styling for consistency */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--primary) / 0.6) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--primary) / 0.6);
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(var(--primary) / 0.8);
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Fix dialog field styling issues */
+.dialog-scroll-area input,
+.dialog-scroll-area select,
+.dialog-scroll-area textarea {
+  border: 1px solid hsl(var(--border)) !important;
+  border-radius: 6px !important;
+  background: hsl(var(--background)) !important;
+  padding: 8px 12px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.dialog-scroll-area input:focus,
+.dialog-scroll-area select:focus,
+.dialog-scroll-area textarea:focus {
+  outline: none !important;
+  border-color: hsl(var(--primary)) !important;
+  box-shadow: 0 0 0 2px hsl(var(--primary) / 0.2) !important;
+}
+
+.dialog-scroll-area::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(155, 155, 155, 0.8) !important;
+}
+
+/* ---------- Mobile support (Anna mobile review checklist) ---------- */
+:root {
+  /* Anna's mobile shell injects --anna-safe-area-*; fall back to env(). */
+  --safe-top: var(--anna-safe-area-top, env(safe-area-inset-top, 0px));
+  --safe-right: var(--anna-safe-area-right, env(safe-area-inset-right, 0px));
+  --safe-bottom: var(--anna-safe-area-bottom, env(safe-area-inset-bottom, 0px));
+  --safe-left: var(--anna-safe-area-left, env(safe-area-inset-left, 0px));
+  --header-h: 3.5rem;
+}
+
+body {
+  padding-left: var(--safe-left);
+  padding-right: var(--safe-right);
+  padding-bottom: var(--safe-bottom);
+}
+
+.app-header {
+  padding-top: var(--safe-top);
+  padding-left: var(--safe-left);
+  padding-right: var(--safe-right);
+}
+.app-main { padding-top: calc(var(--header-h) + var(--safe-top) + 0.5rem); }
+.app-mobile-menu { top: calc(var(--header-h) + var(--safe-top)); max-height: calc(100vh - var(--header-h) - var(--safe-top)); padding-bottom: var(--safe-bottom); }
+.app-mobile-menu-backdrop { top: calc(var(--header-h) + var(--safe-top)); }
+
+@media (max-width: 640px) {
+  .container {
+    max-width: 100%;
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  h1 { font-size: 1.6rem; }
+  /* Let long words and flex children shrink instead of pushing the page wide. */
+  main * { min-width: 0; }
+  main { overflow-wrap: break-word; }
+  /* Header rows (title + action) wrap instead of squeezing the title. */
+  main .flex-row.items-center.justify-between { flex-wrap: wrap; gap: 0.5rem; }
+  main h2, main h3 { hyphens: manual; }
+  img, svg, video, canvas, table { max-width: 100%; }
+}
+
+/* Touch targets of at least 44 x 44 on touch screens. */
+@media (pointer: coarse) {
+  button:not([role="checkbox"]):not([role="radio"]):not([role="switch"]):not([data-no-touch-min]),
+  [role="tab"],
+  [role="combobox"],
+  [role="menuitem"],
+  select,
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+  .touch-target {
+    min-height: 44px;
+  }
+  button:not([role="checkbox"]):not([role="radio"]):not([role="switch"]):not([data-no-touch-min]),
+  [role="tab"] {
+    min-width: 44px;
+  }
+  /* Tiny controls keep their look but get a larger invisible hit area. */
+  [role="checkbox"],
+  [role="radio"],
+  [role="switch"] {
+    position: relative;
+  }
+  [role="checkbox"]::after,
+  [role="radio"]::after,
+  [role="switch"]::after {
+    content: "";
+    position: absolute;
+    inset: -14px;
+  }
+}

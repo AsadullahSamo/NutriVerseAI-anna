@@ -1,0 +1,126 @@
+/* ===================================================================
+   UNIFIED DROPDOWN STYLING - NAVBAR CONSISTENCY
+   All dropdown fields will match navbar styling exactly
+   =================================================================== */
+
+/* ===== CORE NAVBAR-STYLE CLASSES ===== */
+.navbar-dropdown-trigger {
+  /* Exact same styling as navbar buttons */
+  @apply flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md transition-colors hover:bg-accent hover:text-accent-foreground cursor-pointer;
+  @apply w-full justify-between border border-input bg-background;
+  @apply focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent;
+}
+
+.navbar-dropdown-content {
+  /* Exact same styling as navbar dropdown menus */
+  @apply absolute top-full left-0 right-0 z-50 mt-1 bg-background border border-border rounded-md shadow-lg;
+  @apply transition-all duration-200 opacity-100 visible;
+  @apply max-h-60 overflow-auto;
+}
+
+.navbar-dropdown-item {
+  /* Exact same styling as navbar dropdown items */
+  @apply flex items-center gap-2 px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer;
+  @apply w-full text-left focus:outline-none focus:bg-accent focus:text-accent-foreground;
+}
+
+/* ===== NATIVE SELECT ELEMENTS ===== */
+select {
+  /* Make native selects look like navbar buttons */
+  @apply px-3 py-2 border border-input bg-background rounded-md text-sm cursor-pointer;
+  @apply focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent;
+  @apply hover:bg-accent hover:text-accent-foreground transition-colors;
+  @apply w-full font-medium;
+}
+
+/* Native select options - AGGRESSIVE OVERRIDE */
+select option,
+select option:hover,
+select option:focus,
+select option:active,
+select option:checked {
+  /* Force navbar-style colors */
+  background-color: hsl(var(--background)) !important;
+  color: hsl(var(--foreground)) !important;
+  padding: 8px 12px !important;
+  cursor: pointer !important;
+  border: none !important;
+  outline: none !important;
+  font-size: 0.875rem !important; /* text-sm */
+  transition: all 0.2s ease-in-out !important;
+}
+
+/* Hover state with navbar accent colors */
+select option:hover,
+select option:focus {
+  background-color: hsl(var(--accent)) !important;
+  color: hsl(var(--accent-foreground)) !important;
+}
+
+/* ===== BROWSER-SPECIFIC OVERRIDES ===== */
+/* WebKit browsers (Chrome, Safari) */
+select option:hover {
+  background: hsl(var(--accent)) !important;
+  color: hsl(var(--accent-foreground)) !important;
+}
+
+/* Firefox */
+@-moz-document url-prefix() {
+  select option:hover {
+    background-color: hsl(var(--accent)) !important;
+    color: hsl(var(--accent-foreground)) !important;
+  }
+}
+
+/* ===== DARK MODE SUPPORT ===== */
+.dark select option,
+[data-theme="dark"] select option {
+  background-color: hsl(var(--background)) !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+.dark select option:hover,
+[data-theme="dark"] select option:hover {
+  background-color: hsl(var(--accent)) !important;
+  color: hsl(var(--accent-foreground)) !important;
+}
+
+/* ===== RADIX UI OVERRIDES ===== */
+/* Radix Select Trigger */
+[data-radix-select-trigger] {
+  @apply navbar-dropdown-trigger;
+}
+
+/* Radix Select Content */
+[data-radix-select-content] {
+  @apply bg-background border border-border rounded-md shadow-lg;
+  @apply transition-all duration-200;
+}
+
+/* Radix Select Items */
+[data-radix-select-item] {
+  @apply navbar-dropdown-item;
+}
+
+/* Radix Dropdown Menu Items */
+[data-radix-dropdown-menu-item] {
+  @apply navbar-dropdown-item;
+}
+
+/* ===== CUSTOM DROPDOWN COMPONENTS ===== */
+.custom-dropdown-trigger {
+  @apply navbar-dropdown-trigger;
+}
+
+.custom-dropdown-content {
+  @apply navbar-dropdown-content;
+}
+
+.custom-dropdown-item {
+  @apply navbar-dropdown-item;
+}
+
+/* Legacy dropdown-option class for backward compatibility */
+.dropdown-option {
+  @apply navbar-dropdown-item;
+}

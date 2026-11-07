@@ -1,0 +1,110 @@
+/* Custom Sonner Toast Styles */
+
+/* Fix the close button styling */
+[data-sonner-toaster] [data-close-button] {
+  background: transparent !important;
+  border: none !important;
+  color: hsl(var(--muted-foreground)) !important;
+  border-radius: 4px !important;
+  width: 20px !important;
+  height: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  font-size: 14px !important;
+  line-height: 1 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  position: absolute !important;
+  right: 8px !important;
+  top: 8px !important;
+  opacity: 0.7 !important;
+  transition: opacity 0.2s ease !important;
+}
+
+[data-sonner-toaster] [data-close-button]:hover {
+  opacity: 1 !important;
+  background: hsl(var(--muted)) !important;
+}
+
+[data-sonner-toaster] [data-close-button]:focus {
+  outline: 2px solid hsl(var(--ring)) !important;
+  outline-offset: 2px !important;
+}
+
+/* Fix the close button icon */
+[data-sonner-toaster] [data-close-button] svg {
+  width: 14px !important;
+  height: 14px !important;
+  stroke-width: 2 !important;
+}
+
+/* Remove any weird background divs */
+[data-sonner-toaster] [data-close-button]::before,
+[data-sonner-toaster] [data-close-button]::after {
+  display: none !important;
+}
+
+/* Ensure toast content doesn't overlap with close button */
+[data-sonner-toaster] [data-content] {
+  padding-right: 32px !important;
+}
+
+/* Fix toast positioning and styling */
+[data-sonner-toaster] {
+  --normal-bg: hsl(var(--background));
+  --normal-border: hsl(var(--border));
+  --normal-text: hsl(var(--foreground));
+  --success-bg: hsl(var(--background));
+  --success-border: hsl(142 76% 36%);
+  --success-text: hsl(var(--foreground));
+  --error-bg: hsl(var(--background));
+  --error-border: hsl(var(--destructive));
+  --error-text: hsl(var(--foreground));
+}
+
+[data-sonner-toaster] [data-sonner-toast] {
+  background: var(--normal-bg) !important;
+  border: 1px solid var(--normal-border) !important;
+  color: var(--normal-text) !important;
+  border-radius: 6px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  font-family: inherit !important;
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+  padding: 12px 16px !important;
+  min-height: auto !important;
+  max-width: 400px !important;
+}
+
+[data-sonner-toaster] [data-sonner-toast][data-type="success"] {
+  background: var(--success-bg) !important;
+  border-color: var(--success-border) !important;
+  color: var(--success-text) !important;
+}
+
+[data-sonner-toaster] [data-sonner-toast][data-type="error"] {
+  background: var(--error-bg) !important;
+  border-color: var(--error-border) !important;
+  color: var(--error-text) !important;
+}
+
+/* Fix any weird oval backgrounds */
+[data-sonner-toaster] [data-sonner-toast] > div:first-child {
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+
+/* Ensure proper text styling */
+[data-sonner-toaster] [data-title] {
+  font-weight: 500 !important;
+  margin-bottom: 2px !important;
+  color: inherit !important;
+}
+
+[data-sonner-toaster] [data-description] {
+  opacity: 0.9 !important;
+  color: inherit !important;
+  font-size: 13px !important;
+}
